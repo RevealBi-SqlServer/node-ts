@@ -1,3 +1,4 @@
+// https://help.revealbi.io/web/getting-started-server-node-typescript/
 import express, { Application } from 'express';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -43,6 +44,7 @@ app.get('/dashboards/names', (req, res) => {
   });
 
 // Step 1: OPTIONAL Create a user context provider
+// https://help.revealbi.io/web/user-context/
 const userContextProvider = (request: IncomingMessage): RVUserContext => {
 
 	let userId = request.headers['x-header-customerid'] as string | undefined;
@@ -74,6 +76,7 @@ const userContextProvider = (request: IncomingMessage): RVUserContext => {
   };
 
 // Step 2: REQUIRED Create an authentication provider with username / password to your SQL Server database
+// https://help.revealbi.io/web/authentication/?code=node-ts
 const authenticationProvider = async (userContext: IRVUserContext | null, dataSource: RVDashboardDataSource) => {
 	if (dataSource instanceof RVSqlServerDataSource) {
 		return new RVUsernamePasswordDataSourceCredential("dev", "dev");
@@ -82,6 +85,7 @@ const authenticationProvider = async (userContext: IRVUserContext | null, dataSo
 }
 
 // Step 3: REQUIRED Add Host, Database to connect.  Schema is optional.
+// https://help.revealbi.io/web/adding-data-sources/ms-sql-server/
 const dataSourceProvider = async (userContext: IRVUserContext | null, dataSource: RVDashboardDataSource) => {
 	if (dataSource instanceof RVSqlServerDataSource) {
 		dataSource.host = "infragistics.local";
@@ -92,6 +96,8 @@ const dataSourceProvider = async (userContext: IRVUserContext | null, dataSource
 
 // Step 4: REQUIRED Create a data source item provider to handle curated data source items, 
 // custom queries, functions, etc.
+// https://help.revealbi.io/web/adding-data-sources/ms-sql-server/
+// https://help.revealbi.io/web/custom-queries/
 const dataSourceItemProvider = async (userContext: IRVUserContext | null, dataSourceItem: RVDataSourceItem) => {
 	if (dataSourceItem instanceof RVSqlServerDataSourceItem) {		
 		
@@ -139,6 +145,7 @@ const dataSourceItemProvider = async (userContext: IRVUserContext | null, dataSo
 
 
 // Step 5: OPTIONAL Create a data source item filter to restrict access to certain data source items
+// https://github.com/RevealBi/Documentation/blob/master/docs/web/user-context.md
 const dataSourceItemFilter = async (userContext: IRVUserContext | null, dataSourceItem: RVDataSourceItem): Promise<boolean> => {
 	if (dataSourceItem instanceof RVSqlServerDataSourceItem) {
 	  // Create an Include or Exclude list
@@ -163,6 +170,7 @@ const dataSourceItemFilter = async (userContext: IRVUserContext | null, dataSour
 // Step 6: OPTIONAL Create a DashboardProvider to handle custom dashboard loading / saving
 // Read / write dashboards to the file system, or optionally a database
 // also userContext can be used to save / load dashboards based on any property in the userContext
+// https://help.revealbi.io/web/saving-dashboards/#example-implementing-save-with-irvdashboardprovider
 const dashboardProvider = async (userContext:IRVUserContext | null, dashboardId: string) => {
 	return fs.createReadStream(`${dashboardDirectory}/${dashboardId}.rdash`);
 }
@@ -172,6 +180,7 @@ const dashboardStorageProvider = async (userContext: IRVUserContext | null, dash
 }
 
 // Step 7: Set up the RevealOptions
+// https://help.revealbi.io/web/getting-started-server-node-typescript/
 const revealOptions: RevealOptions = {
 	userContextProvider: userContextProvider,
 	authenticationProvider: authenticationProvider,
