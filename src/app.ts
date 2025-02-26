@@ -36,7 +36,7 @@ app.get('/dashboards/names', (req, res) => {
   
 	  const fileNames = files.map((file) => {
 		const { name } = path.parse(file);
-		return { name };
+		return { dashboardFileName: name, dashboardTitle: name };
 	  });
   
 	  res.send(fileNames);
@@ -88,6 +88,7 @@ const authenticationProvider = async (userContext: IRVUserContext | null, dataSo
 // https://help.revealbi.io/web/adding-data-sources/ms-sql-server/
 const dataSourceProvider = async (userContext: IRVUserContext | null, dataSource: RVDashboardDataSource) => {
 	if (dataSource instanceof RVSqlServerDataSource) {
+		console.log(`UserContextProvider: ${userContext?.userId}`);
 		dataSource.host = "s0106linuxsql1.infragistics.local";
 		dataSource.database = "devtest";
 	}
