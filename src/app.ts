@@ -79,7 +79,7 @@ const userContextProvider = (request: IncomingMessage): RVUserContext => {
 // https://help.revealbi.io/web/authentication/?code=node-ts
 const authenticationProvider = async (userContext: IRVUserContext | null, dataSource: RVDashboardDataSource) => {
 	if (dataSource instanceof RVSqlServerDataSource) {
-		return new RVUsernamePasswordDataSourceCredential("dev", "dev");
+		return new RVUsernamePasswordDataSourceCredential("dev", "mugger(lunges0");
 	}
 	return null;
 }
