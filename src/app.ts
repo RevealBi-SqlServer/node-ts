@@ -79,7 +79,7 @@ const userContextProvider = (request: IncomingMessage): RVUserContext => {
 // https://help.revealbi.io/web/authentication/?code=node-ts
 const authenticationProvider = async (userContext: IRVUserContext | null, dataSource: RVDashboardDataSource) => {
 	if (dataSource instanceof RVSqlServerDataSource) {
-		return new RVUsernamePasswordDataSourceCredential("dev", "mugger(lunges0");
+		return new RVUsernamePasswordDataSourceCredential("dev", "dev");
 	}
 	return null;
 }
@@ -88,7 +88,6 @@ const authenticationProvider = async (userContext: IRVUserContext | null, dataSo
 // https://help.revealbi.io/web/adding-data-sources/ms-sql-server/
 const dataSourceProvider = async (userContext: IRVUserContext | null, dataSource: RVDashboardDataSource) => {
 	if (dataSource instanceof RVSqlServerDataSource) {
-		console.log(`UserContextProvider: ${userContext?.userId}`);
 		dataSource.host = "s0106linuxsql1.infragistics.local";
 		dataSource.database = "devtest";
 	}
