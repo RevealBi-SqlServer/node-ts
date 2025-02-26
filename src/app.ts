@@ -19,7 +19,7 @@ import { promisify } from 'util';
 import { pipeline } from 'stream';
 
 const app: Application = express();
-const dashboardDirectory: string = "myDashboards";
+const dashboardDirectory: string = "Dashboards";
 const pipelineAsync = promisify(pipeline);
 app.use(cors());
 
@@ -79,7 +79,7 @@ const userContextProvider = (request: IncomingMessage): RVUserContext => {
 // https://help.revealbi.io/web/authentication/?code=node-ts
 const authenticationProvider = async (userContext: IRVUserContext | null, dataSource: RVDashboardDataSource) => {
 	if (dataSource instanceof RVSqlServerDataSource) {
-		return new RVUsernamePasswordDataSourceCredential("dev", "dev");
+		return new RVUsernamePasswordDataSourceCredential("dev", "mugger(lunges0");
 	}
 	return null;
 }
@@ -88,7 +88,7 @@ const authenticationProvider = async (userContext: IRVUserContext | null, dataSo
 // https://help.revealbi.io/web/adding-data-sources/ms-sql-server/
 const dataSourceProvider = async (userContext: IRVUserContext | null, dataSource: RVDashboardDataSource) => {
 	if (dataSource instanceof RVSqlServerDataSource) {
-		dataSource.host = "infragistics.local";
+		dataSource.host = "s0106linuxsql1.infragistics.local";
 		dataSource.database = "devtest";
 	}
 	return dataSource;
@@ -149,7 +149,7 @@ const dataSourceItemProvider = async (userContext: IRVUserContext | null, dataSo
 const dataSourceItemFilter = async (userContext: IRVUserContext | null, dataSourceItem: RVDataSourceItem): Promise<boolean> => {
 	if (dataSourceItem instanceof RVSqlServerDataSourceItem) {
 	  // Create an Include or Exclude list
-	  const includedList = ["Customers", "Orders", "'Order Details'"];
+	  const includedList = ["Customers", "Orders", "Order Details"];
   
 	  // Check user role from the userContext - BLONP and AROUT are Admins
 	  const role = userContext?.properties.get("Role") || "User";
